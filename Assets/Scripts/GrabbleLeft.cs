@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grabble : MonoBehaviour
+public class GrabbleLeft : MonoBehaviour
 {
     public GameObject collidingObject;
     public GameObject objectInHand;
@@ -18,24 +18,26 @@ public class Grabble : MonoBehaviour
     void Update()
     {
 
-            Debug.Log("Both");
-            if (OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger) >= 0.1f && collidingObject)
+        transform.localPosition = new Vector3(0, 0, 0);
+        transform.localRotation = new Quaternion(1, 0, 0, 0);
+        if ((OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger) >= 0.1f) && collidingObject && (collidingObject.transform.parent == null))
 
-            {
+        {
 
-                GrabObject();
+            GrabObject();
 
-            }
+        }
 
-            if (!(OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger) >= 0.1f) && objectInHand)
+        if (!(OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger) >= 0.1f) && objectInHand)
 
-            {
+        {
 
-                ReleaseObject();
+            ReleaseObject();
 
-            }
-   
+        }
+
     }
+
     public void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Grabble")

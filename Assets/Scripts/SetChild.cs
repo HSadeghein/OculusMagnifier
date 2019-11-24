@@ -27,12 +27,13 @@ public class SetChild : MonoBehaviour
         leftHand = this.GetComponent<Transform>().Find("hand_left");
         if (leftHand != null && rightHand != null && !isDone)
         {
-            this.GetComponent<Transform>().Find("AvatarGrabberRight").transform.position = new Vector3(0, 0, 0);
-            this.GetComponent<Transform>().Find("AvatarGrabberRight").transform.parent = rightHand.transform;
-            this.GetComponent<Transform>().Find("AvatarGrabberLeft").transform.position = new Vector3(0, 0, 0);
-            this.GetComponent<Transform>().Find("AvatarGrabberLeft").transform.parent = leftHand.transform;
+            this.GetComponent<Transform>().Find("GrabberRight").transform.position = new Vector3(0, 0, 0);
+            this.GetComponent<Transform>().Find("GrabberRight").transform.parent = rightHand.transform;
+            this.GetComponent<Transform>().Find("GrabberLeft").transform.position = new Vector3(0, 0, 0);
+            this.GetComponent<Transform>().Find("GrabberLeft").transform.parent = leftHand.transform;
             isDone = true;
         }
+
     }
 
 
