@@ -34,4 +34,4 @@ Material:
     - _StencilWriteMask: 255
     - _UseUIAlphaClip: 0
     m_Colors:
-    - _Color: {r: 1, g: 0.7017544, b: 0, a: 0.44705883}
+    - _Color: {r: 0.6226415, g: 0.43706992, b: 0, a: 0.7490196}

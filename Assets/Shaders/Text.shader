@@ -10,8 +10,7 @@ Properties
 SubShader {
         Tags
         {
-            "Queue"="Transparent"
-            "IgnoreProjector"="True"
+            "Queue"="Geometry+1"
             "RenderType"="Transparent"
             "PreviewType"="Plane"
             "CanUseSpriteAtlas"="True"
@@ -20,12 +19,11 @@ SubShader {
 		Cull Off
         Lighting Off
 		ZWrite Off
-		ZTest [unity_GUIZTestMode]
         Blend SrcAlpha OneMinusSrcAlpha
         CGINCLUDE
 
-            #include "UnityCG.cginc"
             #include "UnityUI.cginc"
+			#include "UnityCG.cginc"
 
             #pragma multi_compile_local _ UNITY_UI_CLIP_RECT
             #pragma multi_compile_local _ UNITY_UI_ALPHACLIP
@@ -52,6 +50,7 @@ SubShader {
             fixed4 _TextureSampleAdd;
             float4 _ClipRect;
             float4 _MainTex_ST;
+			RWTexture2D<float4> _VolumeScatter;
 
             v2f vert(appdata_t v)
             {
@@ -84,7 +83,7 @@ SubShader {
 
 			v2f vert1(appdata_t v)
             {
-				v.vertex *= 2;
+				v.vertex *= 1.9;
                 v2f OUT;
                 UNITY_SETUP_INSTANCE_ID(v);
                 UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(OUT);
@@ -108,12 +107,21 @@ SubShader {
                 #ifdef UNITY_UI_ALPHACLIP
                 clip (color.a - 0.001);
                 #endif
-
+				_VolumeScatter[IN.texcoord] = color;
                 return color;
             }
         ENDCG
 
+			Pass
+			{
+				Zwrite On
+				ColorMask RGB
+				CGPROGRAM
+				#pragma vertex vert
+				#pragma fragment frag
 
+				ENDCG
+			}
         Pass {
 		    ColorMask 0
 			Stencil {
@@ -128,14 +136,6 @@ SubShader {
             ENDCG
         }
 
-		Pass
-		{
 
-			ColorMask RGB
-		    CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
-            ENDCG
-		}
     } 
 }
