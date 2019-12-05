@@ -1,4 +1,4 @@
-﻿Shader "XR/Text"
+﻿Shader "Oculus/HiddenStencil"
 {
 Properties
 {
@@ -50,7 +50,6 @@ SubShader {
             fixed4 _TextureSampleAdd;
             float4 _ClipRect;
             float4 _MainTex_ST;
-			RWTexture2D<float4> _VolumeScatter;
 
             v2f vert(appdata_t v)
             {
@@ -83,7 +82,7 @@ SubShader {
 
 			v2f vert1(appdata_t v)
             {
-				v.vertex *= 1.9;
+				v.vertex *= 1.2;
                 v2f OUT;
                 UNITY_SETUP_INSTANCE_ID(v);
                 UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(OUT);
@@ -107,15 +106,14 @@ SubShader {
                 #ifdef UNITY_UI_ALPHACLIP
                 clip (color.a - 0.001);
                 #endif
-				_VolumeScatter[IN.texcoord] = color;
                 return color;
             }
         ENDCG
 
 			Pass
 			{
-				Zwrite On
-				ColorMask RGB
+				Zwrite Off
+				ColorMask 0
 				CGPROGRAM
 				#pragma vertex vert
 				#pragma fragment frag
@@ -124,6 +122,7 @@ SubShader {
 			}
         Pass {
 		    ColorMask 0
+             AlphaToMask On
 			Stencil {
 				Ref 1
 				Comp always
