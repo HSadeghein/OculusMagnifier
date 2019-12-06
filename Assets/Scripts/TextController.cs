@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class TextController : MonoBehaviour
 {
     private Text mText;
-    private string mExit, mInfo, mSwitchMaterial, mMagnifierGenerator;
+    private string mExit, mInfo, mSwitchMaterial, mMagnifierGenerator, lockRotation, lockPosition;
     [HideInInspector]
 
     // Start is called before the first frame update
@@ -18,8 +18,10 @@ public class TextController : MonoBehaviour
         mInfo = $"<b>*</b> You should take the <b><color=red>both</color></b> controller on\n";
         mSwitchMaterial = $"<b>*</b> Press the first button of the Right Controller to switch to the Stencil Method ==> <b><color=red>A</color></b>\n";
         mMagnifierGenerator = $"<b>*</b> Press the first button of the Left Controller to generate another magnifier at the initial position ==> <b><color=red>X</color></b>\n";
+        lockPosition = $"<b>*</b> Press the  <b><color=red>thumbstick</color></b> button of the Left Controller to lock the positional tracking\n";
+        lockRotation = $"<b>*</b> Press the <b><color=red>thumbstick</color></b> button of the Right Controller to lock the rotational tracking\n";
 
-        mText.text =  mInfo + mExit + mSwitchMaterial + mMagnifierGenerator;
+        mText.text = mInfo + mExit + mSwitchMaterial + mMagnifierGenerator + lockPosition + lockRotation;
     }
 
     // Update is called once per frame
